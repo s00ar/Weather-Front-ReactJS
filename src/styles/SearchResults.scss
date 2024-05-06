@@ -1,0 +1,32 @@
+.search-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .error-message {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .current-weather,
+  .forecast {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 4px;
+  }
+  
+  .current-weather h2,
+  .forecast h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .day-forecast {
+    margin-top: 10px;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+  }
+  
