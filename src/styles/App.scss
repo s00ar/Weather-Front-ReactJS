@@ -1,7 +1,9 @@
 body {
   font-family: "Roboto", sans-serif;
-  background: radial-gradient(circle at 200% 0, #041924 0, #01476a 100%);
-  color: var(--white);
+  // background image from public/backgrounds
+  background-image: url('/backgrounds/snow.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 @font-face {
   font-family: "Feather";

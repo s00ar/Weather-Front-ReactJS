@@ -1,21 +1,23 @@
-import React, { useState } from 'react'
-import Weather from "./pages/Weather";
+import React, { useState } from 'react';
+import Weather from "./components/Weather";
 import Header from './components/Header';
-import SearchResults from './components/SearchResults';
-import './styles/App.scss'
-import {ThemeProvider} from './ThemeContext';
+import WeatherInfo from './components/WeatherInfo';
+import './styles/App.scss';
 
-export const ThemeContext = React.createContext()
+export const ThemeContext = React.createContext();
 
 function App() {
   const maxLength = 32;
   const [inputValue, setInputValue] = useState("");
   const [showWeather, setShowWeather] = useState(false);
- 
-  const apiKey = "60a7370e0d26c3ce74a68b7dcad162f5"
-  console.log('API Key:', apiKey);
-  // Print environment variables
-  console.log('All Env Variables:', import.meta.env);
+  const [darkTheme, setDarkTheme] = useState(false);
+  const [weatherData, setWeatherData] = useState(null);
+
+  function toggleTheme() {
+    setDarkTheme((prevDarkTheme) => !prevDarkTheme);    
+  }
+
+  const apiKey = import.meta.env?.VITE_REACT_APP_API_KEY;
   
   const handleChange = (e) => {
     const value = e.target.value;
@@ -26,21 +28,32 @@ function App() {
       alert(`Maximo de ${maxLength} caracteres excedido!`);
     }
   };
+
   const handleButtonClick = () => {
     setShowWeather((prevShowWeather) => !prevShowWeather);
   };
+
+  const themeStyles = {
+    // backgroundColor: darkTheme ? '#8585852a' : '#CCC',
+    backgroundImage: '/weather/${apiData.weather[0].main}.png',
+    color: darkTheme ? '#CCC' : '#fff',
+    padding: '10px',
+    margin: '10px',
+    // backgroundImage: `url(/backgrounds/${apiData.weather[0].main}.png)`
+  };
+
   return (
-    <>
-      <ThemeProvider>
-        <button onClick={toggleTheme}>Dark/Light mode</button>
-        <div className="">
-          <Header />
-          <Weather apiKey={apiKey} />
-          <SearchResults apiKey={apiKey} />
-        </div>
-      </ThemeProvider>
-    </>
+    <ThemeContext.Provider value={darkTheme}>
+      <div className="" style={themeStyles}>
+      <button onClick={toggleTheme}>Dark/Light mode</button>
+      <ThemeContext.Provider value={weatherData} >
+        <Header />
+        <Weather apiKey={apiKey} />
+        <WeatherInfo apiKey={apiKey} />
+      </ThemeContext.Provider>
+      </div>
+    </ThemeContext.Provider>
   );
 }
 
-export default App
+export default App;

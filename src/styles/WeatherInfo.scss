@@ -1,0 +1,57 @@
+/* Base styles for the entire weather app */
+.weather-app {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Styles for the right-side weather component */
+.weather-app__weather-component {
+  background: rgba(0, 0, 0, 0.5); /* Add blur effect */
+  flex: 1; /* Take up remaining space */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Right-align content */
+}
+
+/* Styles for the search location bar */
+.weather-app__weather-component__search {
+  margin-bottom: 20px;
+  width: 100%; /* Stretch across container */
+}
+
+/* Styles for weather details section */
+.weather-app__weather-component__details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Styles for individual weather detail elements (Temp Max, etc.) */
+.weather-app__weather-component__details__detail {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* Styles for the separator line */
+.weather-app__weather-component__separator {
+  width: 100%; /* Stretch across container */
+  border-bottom: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+/* Styles for the today's forecast section */
+.weather-app__weather-component__forecast {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap if needed */
+  justify-content: space-between; /* Distribute items evenly */
+}
+
+/* Styles for individual forecast day elements */
+.weather-app__weather-component__forecast__day {
+  width: calc(33% - 10px); /* Calculate width based on 3 columns with margin */
+  text-align: center;
+  margin-bottom: 10px;
+}

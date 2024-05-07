@@ -1,10 +1,15 @@
 .header {
     padding: 20px;
     text-align: center;
+    filter: invert(100%);
+    &__logo {
+      // Justify the logo to the left of the header
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    // adds a variable so that it inverts the logos color on dark theme 
+    // &--inverted {
+      // filter: none;
+    // }
   }
-.header__logo {
-  // Justify the logo to the left of the header
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
