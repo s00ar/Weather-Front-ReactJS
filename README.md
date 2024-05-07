@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Responsive Weather App
 
 This is a responsive weather app built with ReactJS, Sass, React Context, and a weather API.
