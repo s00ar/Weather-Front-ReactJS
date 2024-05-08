@@ -1,3 +1,0 @@
-header__logo &--inverted needs to be able to set based in the context for the dark theme
-The context for the weather location is not working as expected to pass data to the weatherInfo component
-The theme context for the location should also change the background image according to the image logo for the weather (they have the same name for the files to make it easier to identify wich goes where)

@@ -1,24 +1,24 @@
 .search-box {
     display: flex;
-    margin: 20px auto;
-    width: 500px;
-    max-width: 100%;
+    align-items: center;
+    margin-bottom: 10px;
+  }
   
-    input {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
-    }
+  .search-box input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
   
-    button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      background-color: #007bff;
-      color: #fff;
-      cursor: pointer;
-    }
+  .search-box button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .search-box button i {
+    font-size: 1.2em;
   }
   

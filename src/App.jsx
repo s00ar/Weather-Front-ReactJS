@@ -1,56 +1,23 @@
-import React, { useState } from 'react';
-import Weather from "./components/Weather";
-import Header from './components/Header';
-import WeatherInfo from './components/WeatherInfo';
+import React from 'react';
 import './styles/App.scss';
-
-export const ThemeContext = React.createContext();
+import { ThemeContext, WeatherDataContext } from './context/ThemeContext.jsx';
+import Header from './components/Header.jsx';
+import Weather from './components/Weather.jsx';
+import WeatherInfo from './components/WeatherInfo.jsx';
+import AppRoutes from './routes/Routes.jsx'; // Import Routes.js
 
 function App() {
-  const maxLength = 32;
-  const [inputValue, setInputValue] = useState("");
-  const [showWeather, setShowWeather] = useState(false);
-  const [darkTheme, setDarkTheme] = useState(false);
-  const [weatherData, setWeatherData] = useState(null);
-
-  function toggleTheme() {
-    setDarkTheme((prevDarkTheme) => !prevDarkTheme);    
-  }
-
-  const apiKey = import.meta.env?.VITE_REACT_APP_API_KEY;
-  
-  const handleChange = (e) => {
-    const value = e.target.value;
-
-    if (value.length <= maxLength) {
-      setInputValue(value);
-    } else {
-      alert(`Maximo de ${maxLength} caracteres excedido!`);
-    }
-  };
-
-  const handleButtonClick = () => {
-    setShowWeather((prevShowWeather) => !prevShowWeather);
-  };
-
-  const themeStyles = {
-    // backgroundColor: darkTheme ? '#8585852a' : '#CCC',
-    backgroundImage: '/weather/${apiData.weather[0].main}.png',
-    color: darkTheme ? '#CCC' : '#fff',
-    padding: '10px',
-    margin: '10px',
-    // backgroundImage: `url(/backgrounds/${apiData.weather[0].main}.png)`
-  };
+  const { toggleTheme } = useContext(ThemeContext); // Access toggleTheme from context
 
   return (
-    <ThemeContext.Provider value={darkTheme}>
-      <div className="" style={themeStyles}>
-      <button onClick={toggleTheme}>Dark/Light mode</button>
-      <ThemeContext.Provider value={weatherData} >
-        <Header />
-        <Weather apiKey={apiKey} />
-        <WeatherInfo apiKey={apiKey} />
-      </ThemeContext.Provider>
+    <ThemeContext.Provider>
+    <AppRoutes />
+      <div className="" style={{ padding: '10px', margin: '10px' }}>
+        <Header onToggleTheme={toggleTheme} /> {/* Pass toggleTheme function to Header */}
+        <WeatherDataContext>
+          <Weather />
+          <WeatherInfo />
+        </WeatherDataContext>
       </div>
     </ThemeContext.Provider>
   );

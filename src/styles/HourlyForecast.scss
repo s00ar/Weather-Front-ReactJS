@@ -1,0 +1,26 @@
+.hourly-forecast {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .hourly-forecast__list {
+    display: flex;
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
+  
+  .hourly-forecast__item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    flex-shrink: 0; /* Prevent items from shrinking in scroll container */
+  }
+  
+  .hourly-forecast__item img {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+  }
+  

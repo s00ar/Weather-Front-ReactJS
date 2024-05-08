@@ -1,0 +1,16 @@
+.daily-forecast {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .daily-forecast__card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .daily-forecast__card__icon {
+    margin-right: 5px;
+  }
+  
