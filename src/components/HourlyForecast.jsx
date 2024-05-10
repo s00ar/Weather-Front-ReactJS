@@ -200,12 +200,6 @@ const HourlyForecast = () => {
               >
                 <LocationOnIcon />
               </IconButton>
-              {/* <InputBase
-                sx={{ ml: 1, flex: 1, color: "white" }}
-                inputProps={{ "aria-label": "search google maps" }}
-                value={inputValue}
-                disabled
-              /> */}
             </Paper>
           </div>
 
