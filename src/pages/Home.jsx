@@ -43,9 +43,6 @@ function Main() {
             className=" absolute -mt text-center w-full text-white  text-8xl"
           />
         </div>
-
-        {/* <SearchBox />  */}
-        {/* <WeatherDetails /> */}
         <HourlyForecast />
       </div>
     </div>
