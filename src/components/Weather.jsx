@@ -9,9 +9,9 @@ import {
   selectFormattedDate,
   setFormattedDate,
   selectDaysForecasted,
-  setDaysForecasted, // Added this action
-  setForecastData, // Added this action
-  selectForecastData, // Added this selector
+  setDaysForecasted,
+  setForecastData,
+  selectForecastData,
 } from "../Redux/Slices/weatherSlice";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
