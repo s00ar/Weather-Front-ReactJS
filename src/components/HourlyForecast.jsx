@@ -8,16 +8,18 @@ import AirOutlinedIcon from "@mui/icons-material/AirOutlined";
 import {
   selectInputValue,
   selectApiKey,
+  setForecastData,
+  selectLoading,
 } from "../Redux/Slices/weatherSlice";
 import { useState, useEffect } from "react";
 
 const HourlyForecast = () => {
+  const isLoading = useSelector(selectLoading);
   const dispatch = useDispatch();
   const inputValue = useSelector(selectInputValue);
   const weatherData = useSelector((state) => state.weather.data);
-  const [daysForecasted, setDaysForecasted] = useState(14);
+  const [daysForecasted, setDaysForecasted] = useState(5);
   const apiKey = useSelector(selectApiKey);
-  
 
   let backgroundImage;
 
@@ -27,21 +29,22 @@ const HourlyForecast = () => {
   } else {
     backgroundImage = "url('/backgrounds/default.jpg')";
   }
-  const newForecastData = useSelector((state) => state.weather.forecastData);
-  const hourlyData = newForecastData?.list;
 
   useEffect(() => {
     if (inputValue) {
       fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=${inputValue}&cnt=${daysForecasted}&units=metric&appid=${apiKey}`
       )
-      .then((res) => res.json())
-      .then((newForecastData) => {         
-        console.log("New forecast data", newForecastData);
-       });
-      }
-  }, [daysForecasted]);
+        .then((res) => res.json())
+        .then((newForecastData) => {
+          console.log("New forecast data", newForecastData);
+          dispatch(setForecastData(newForecastData));
+        });
+    }
+  }, [inputValue, daysForecasted, apiKey, setForecastData]);
 
+  const newForecastData = useSelector((state) => state.weather.forecastData);
+  const hourlyData = newForecastData?.list;
   if (!hourlyData) return null;
 
   const formatTime = (timestamp) => {
@@ -73,8 +76,8 @@ const HourlyForecast = () => {
     return directions[index];
   };
 
-  const formattedWind = `${getWindDirection(weatherData.wind.deg)}, ${
-    weatherData.wind.speed
+  const formattedWind = `${getWindDirection(weatherData?.wind.deg)}, ${
+    weatherData?.wind.speed
   } km/h`;
 
   const getCurrentDate = () => {
@@ -89,14 +92,14 @@ const HourlyForecast = () => {
 
   const currentDate = getCurrentDate();
 
-  const filterForecastData = () => {
-    const nextDayForecastData = newForecastData.list.filter((item) =>
-      item.dt_txt.includes(currentDate)
-    );
-    return nextDayForecastData;
-  };
+  // const filterForecastData = () => {
+  //   const nextDayForecastData = newForecastData.list.filter((item) =>
+  //     item.dt_txt.includes(currentDate)
+  //   );
+  //   return nextDayForecastData;
+  // };
 
-  const nextDayForecastData = filterForecastData();
+  // const nextDayForecastData = filterForecastData();
 
   const formatDate = (inputDate) => {
     const date = new Date(inputDate);
@@ -133,8 +136,12 @@ const HourlyForecast = () => {
   };
 
   const handleButtonClick = (days) => {
+    console.log("Setting daysForecasted to", days);
     setDaysForecasted(days);
   };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div
@@ -215,7 +222,8 @@ const HourlyForecast = () => {
                 {" "}
                 <h1 className="text-5xl text-white mt-10 ">
                   {" "}
-                  {Math.floor(kelvinToFahrenheit(weatherData.main.temp))}&deg; C
+                  {Math.floor(kelvinToFahrenheit(weatherData?.main.temp))}&deg;
+                  C
                 </h1>
                 <div className="flex  justify-center my-3 mb-10 ">
                   <AirOutlinedIcon className="-ml-1 text-sm text-opacity-60 text-gray-100" />
@@ -248,8 +256,7 @@ const HourlyForecast = () => {
                       30 Days
                     </button>
                   </div>
-                  <div>
-                  </div>
+                  <div></div>
                   <div className="">
                     {newForecastData.list.length > 0 ? (
                       <ul>

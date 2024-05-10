@@ -21,11 +21,23 @@ import FilterDramaOutlinedIcon from "@mui/icons-material/FilterDramaOutlined";
 import AirOutlinedIcon from "@mui/icons-material/AirOutlined";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";import "../styles/WeatherInfo.scss";
+import SearchIcon from "@mui/icons-material/Search";
+import "../styles/WeatherInfo.scss";
 
 const Weather = () => {
+  const defaultWeatherData = {
+    main: {
+      temp: 0,
+      temp_min: 0,
+      temp_max: 0,
+      humidity: 0,
+    },
+    weather: [{ main: "", description: "" }],
+    clouds: { all: 0 },
+    wind: { speed: 0 },
+  };
   const dispatch = useDispatch();
-  const weatherData = useSelector(selectWeatherData);
+  const weatherData = useSelector(selectWeatherData) || defaultWeatherData;
   const formattedDate = useSelector(selectFormattedDate);
   const forecastData = useSelector(selectForecastData); // Added selector
   const inputValue = useSelector(selectInputValue);

@@ -1,4 +1,3 @@
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const weatherSlice = createSlice({
@@ -9,6 +8,7 @@ export const weatherSlice = createSlice({
     forecastData: null, // Add forecastData field
     inputValue: "London",
     formattedDate: "",
+    isLoading: false,
   },
   reducers: {
     setWeatherData: (state, action) => {
@@ -25,16 +25,15 @@ export const weatherSlice = createSlice({
     },
     setDaysForecasted: (state, action) => {
       state.daysForecasted = action.payload;
-    }  
+    },
   },
 });
 
 export const fetchForecastData = createAsyncThunk(
   "weather/fetchForecastData",
   async (days) => {
-    const response = await fetch(
-      // ... your API call with days parameter
-    );
+    const response = await fetch();
+    // ... your API call with days parameter
     const data = await response.json();
     return data;
   }
@@ -49,7 +48,7 @@ export const {
   setWeatherData,
   setForecastData,
   setInputValue,
-  setFormattedDate
+  setFormattedDate,
 } = weatherSlice.actions;
 
 export const selectWeatherData = (state) => state.weather.data;
@@ -58,7 +57,5 @@ export const selectInputValue = (state) => state.weather.inputValue;
 export const selectApiKey = (state) => state.weather.apiKey;
 export const selectFormattedDate = (state) => state.weather.formattedDate;
 export const selectDaysForecasted = (state) => state.weather.daysForecasted;
-
-
+export const selectLoading = (state) => state.weather.isLoading;
 export default weatherSlice.reducer;
-
