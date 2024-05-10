@@ -142,8 +142,8 @@ const HourlyForecast = () => {
       <div className=" flex-[3] md:flex-[6] ">
         <div className="p-6">
           <h1 className="text-center md:text-right text-gray-200">
-            {formatDate(nextDayForecastData[0].dt_txt)} |{" "}
-            {formatTime(nextDayForecastData[0].dt)}
+            {/* Show current time and date */}
+            {currentDate} | {formatTime(new Date().getTime() / 1000)}
           </h1>
         </div>
         <div className="md:mt-96 text-center md:text-right px-12 ">
@@ -198,12 +198,6 @@ const HourlyForecast = () => {
               >
                 <LocationOnIcon />
               </IconButton>
-              {/* <InputBase
-                sx={{ ml: 1, flex: 1, color: "white" }}
-                inputProps={{ "aria-label": "search google maps" }}
-                value={inputValue}
-                disabled
-              /> */}
             </Paper>
           </div>
 
