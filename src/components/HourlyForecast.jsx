@@ -144,7 +144,10 @@ const HourlyForecast = () => {
       <div className=" flex-[3] md:flex-[6] ">
         <div className="p-6">
           <h1 className="text-center md:text-right text-gray-200">
-            21 April 2023 | 11:00
+            {/* add date */}
+            {formatDate(nextDayForecastData[0].dt_txt)} |{" "}
+            {formatTime(nextDayForecastData[0].dt)}
+            {/* add time */}
           </h1>
         </div>
         {/* cc */}
