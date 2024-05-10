@@ -92,15 +92,6 @@ const HourlyForecast = () => {
 
   const currentDate = getCurrentDate();
 
-  // const filterForecastData = () => {
-  //   const nextDayForecastData = newForecastData.list.filter((item) =>
-  //     item.dt_txt.includes(currentDate)
-  //   );
-  //   return nextDayForecastData;
-  // };
-
-  // const nextDayForecastData = filterForecastData();
-
   const formatDate = (inputDate) => {
     const date = new Date(inputDate);
 
@@ -151,10 +142,10 @@ const HourlyForecast = () => {
       <div className=" flex-[3] md:flex-[6] ">
         <div className="p-6">
           <h1 className="text-center md:text-right text-gray-200">
-            21 April 2023 | 11:00
+            {formatDate(nextDayForecastData[0].dt_txt)} |{" "}
+            {formatTime(nextDayForecastData[0].dt)}
           </h1>
         </div>
-        {/* cc */}
         <div className="md:mt-96 text-center md:text-right px-12 ">
           <div className="my-2 p-3">
             <h2 className="text-white  text-3xl md:text-7xl">
