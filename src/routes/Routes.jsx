@@ -1,13 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home.jsx'; // Import your main page component
-import Forecast from './pages/Forecast.jsx'; // Import your forecast page component
+import Home from '../pages/Home.jsx'; // Import your main page component
 
 function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/forecast" element={<Forecast />} />
       </Routes>
     </BrowserRouter>
   );

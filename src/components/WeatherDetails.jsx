@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles/weatherDetails.scss';
+import '../styles/WeatherDetails.scss';
 
 function WeatherDetails({ weatherData }) {
     if (!weatherData) return null;

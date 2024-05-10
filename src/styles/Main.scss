@@ -1,24 +1,35 @@
 .main {
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-  }
-  
-  .main--dark {
-    background-color: #333;
-    color: #fff;
-  }
-  
-  .main__weather-container {
-    flex: 0 0 70%;
-    /* Other styles for positioning weather content on bottom left */
-  }
-  
-  .main__details-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll; /* Enable scrolling on the right side */
-    padding: 20px;
-  }
-  
+  width: 100vw;
+  height: 100vh;
+}
+
+.main--dark {
+  background-color: #333;
+  color: #fff;
+}
+
+.main__weather-container {
+  flex: 0 0 95%;
+  /* Other styles for positioning weather content on bottom left */
+}
+
+.main__details-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden; /* Enable scrolling on the right side */
+  // padding: 20px;
+}
+
+
+
+ .scroll{
+  overflow-x: hidden; 
+  overflow-y: scroll; 
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+
+::-webkit-scrollbar {
+  display: none; 
+}

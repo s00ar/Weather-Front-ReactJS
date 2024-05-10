@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles/dailyForecast.scss';
+import '../styles/DailyForecast.scss';
 
 function DailyForecast({ forecastData }) {
   if (!forecastData) return null;
