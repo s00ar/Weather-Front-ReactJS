@@ -18,7 +18,7 @@ const HourlyForecast = () => {
   const dispatch = useDispatch();
   const inputValue = useSelector(selectInputValue);
   const weatherData = useSelector((state) => state.weather.data);
-  const [daysForecasted, setDaysForecasted] = useState(5);
+  const [daysCount, setDaysCount] = useState(5);
   const apiKey = useSelector(selectApiKey);
 
   let backgroundImage;
@@ -33,7 +33,7 @@ const HourlyForecast = () => {
   useEffect(() => {
     if (inputValue) {
       fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${inputValue}&cnt=${daysForecasted}&units=metric&appid=${apiKey}`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${inputValue}&cnt=100&units=metric&appid=${apiKey}`
       )
         .then((res) => res.json())
         .then((newForecastData) => {
@@ -41,10 +41,40 @@ const HourlyForecast = () => {
           dispatch(setForecastData(newForecastData));
         });
     }
-  }, [inputValue, daysForecasted, apiKey, setForecastData]);
+  }, [inputValue, apiKey, setForecastData]);
 
   const newForecastData = useSelector((state) => state.weather.forecastData);
   const hourlyData = newForecastData?.list;
+
+  // new changes here
+  function extractDate(dt_txt) {
+    return dt_txt.split(" ")[0]; // Extracting only the date part
+  }
+
+  const uniqueDates = {}; // This object will keep track of the unique dates we've encountered
+  const filteredData = newForecastData?.list.filter((item) => {
+    const date = extractDate(item.dt_txt);
+    if (!uniqueDates[date]) {
+      uniqueDates[date] = true; // Mark this date as encountered
+      return true; // Include this data entry in the filtered array
+    }
+    return false; // Exclude this data entry
+  });
+  // Create an array of indices from 0 to filteredData.length - 1
+  const indices = Array.from(
+    { length: filteredData?.length * 5 },
+    (_, index) => index
+  );
+
+  // Map each index to the corresponding item in filteredData and flatten the resulting array
+  const allFilteredData = indices
+    .map((index) => filteredData[index % filteredData?.length])
+    .flat();
+
+  // new changes here
+
+  console.log("DataNewOne aaaall ", newForecastData);
+
   if (!hourlyData) return null;
 
   const formatTime = (timestamp) => {
@@ -128,7 +158,7 @@ const HourlyForecast = () => {
 
   const handleButtonClick = (days) => {
     console.log("Setting daysForecasted to", days);
-    setDaysForecasted(days);
+    setDaysCount(days);
   };
   if (isLoading) {
     return <div>Loading...</div>;
@@ -243,46 +273,51 @@ const HourlyForecast = () => {
                   </div>
                   <div></div>
                   <div className="">
-                    {newForecastData.list.length > 0 ? (
+                    {allFilteredData?.length > 0 ? (
                       <ul>
-                        {newForecastData.list.map((item, index) => (
-                          <li key={index} className="flex justify-around mt-6">
-                            <div className="flex">
-                              <div className="bg-gray-200 bg-opacity-30 rounded-md grid place-items-center justify-center">
-                                <img
-                                  src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
-                                  alt="Weather Icon"
-                                  width="40"
-                                />
+                        {allFilteredData
+                          ?.slice(0, daysCount)
+                          .map((item, index) => (
+                            <li
+                              key={index}
+                              className="flex justify-around mt-6"
+                            >
+                              <div className="flex">
+                                <div className="bg-gray-200 bg-opacity-30 rounded-md grid place-items-center justify-center">
+                                  <img
+                                    src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
+                                    alt="Weather Icon"
+                                    width="40"
+                                  />
+                                </div>
+                                <div className="ml-2">
+                                  <h5 className="text-opacity-50">
+                                    {formatDate(item.dt_txt)}
+                                  </h5>
+                                  <p className="text-white text-opacity-60">
+                                    {item.weather[0].description}
+                                  </p>
+                                </div>
                               </div>
-                              <div className="ml-2">
-                                <h5 className="text-opacity-50">
-                                  {formatDate(item.dt_txt)}
-                                </h5>
-                                <p className="text-white text-opacity-60">
-                                  {item.weather[0].description}
-                                </p>
+                              <div className="flex flex-row">
+                                <div className="bg-white w-[1px] h-full bg-opacity-20 mt- text-white"></div>
+                                <div className="ml-2 -mt-1">
+                                  <h5 className="my-1">
+                                    {Math.round(
+                                      kelvinToFahrenheit(item.main.temp_max)
+                                    )}
+                                    &deg;
+                                  </h5>
+                                  <h5>
+                                    {Math.round(
+                                      kelvinToFahrenheit(item.main.temp_min)
+                                    )}
+                                    &deg;
+                                  </h5>
+                                </div>
                               </div>
-                            </div>
-                            <div className="flex flex-row">
-                              <div className="bg-white w-[1px] h-full bg-opacity-20 mt- text-white"></div>
-                              <div className="ml-2 -mt-1">
-                                <h5 className="my-1">
-                                  {Math.round(
-                                    kelvinToFahrenheit(item.main.temp_max)
-                                  )}
-                                  &deg;
-                                </h5>
-                                <h5>
-                                  {Math.round(
-                                    kelvinToFahrenheit(item.main.temp_min)
-                                  )}
-                                  &deg;
-                                </h5>
-                              </div>
-                            </div>
-                          </li>
-                        ))}
+                            </li>
+                          ))}
                       </ul>
                     ) : (
                       <h1 className="text-lg text-white">
