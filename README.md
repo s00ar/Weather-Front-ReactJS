@@ -6,7 +6,7 @@ Este proyecto consiste en una aplicación web de pronóstico del tiempo desarrol
 
 ## Funcionalidades:
 
-Búsqueda por ciudad: Permite al usuario ingresar el nombre de una ciudad para obtener información meteorológica específica.
+Búsqueda por ciudad: Permite al usuario ingresar el nombre de una ciudad para obtener información meteorológica específica. En base a la información recibida por la api cambia el fondo de toda la aplicación acorde a la situación meteorológica local.
 Pronóstico del tiempo: Muestra el clima actual, la temperatura, la humedad, la velocidad del viento, la sensación térmica y la probabilidad de lluvia para el día actual y los próximos días.
 Íconos del clima: Utiliza íconos intuitivos para representar las condiciones climáticas actuales y futuras.
 Gráficos: Presenta gráficos lineales y de barras para visualizar la evolución de la temperatura, la humedad y la probabilidad de lluvia a lo largo de los días.
